@@ -49,7 +49,7 @@ endif
 # Specify Target Custom GCC Chains to use:
 
 # ROM
-TARGET_GCC_VERSION_AND := 4.8
+TARGET_GCC_VERSION_AND := 4.9
 
 # KERNEL
 TARGET_GCC_VERSION_ARM := 4.8
@@ -63,7 +63,7 @@ include $(TARGET_ARCH_SPECIFIC_MAKEFILE)
 
 # You can set TARGET_TOOLS_PREFIX to get gcc from somewhere else
 ifeq ($(strip $(TARGET_TOOLS_PREFIX)),)
-TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-$(TARGET_GCC_VERSION_AND)
+TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/sm-arm-androideabi-$(TARGET_GCC_VERSION_AND)
 TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/arm-linux-androideabi-
 endif
 
