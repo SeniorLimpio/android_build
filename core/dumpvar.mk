@@ -108,7 +108,7 @@ endif
 ifeq ($(LINARO_GCC_VERSION),4.8)
 $(info   TARGET_GCC_VERSION=$(TARGET_GCC_VERSION_AND))
 else
-$(info   TARGET_GCC_VERSION=SaberMod 4.9)
+$(info   TARGET_GCC_VERSION=SaberMod 4.8)
 endif
 $(info   HOST_ARCH=$(HOST_ARCH))
 $(info   HOST_OS=$(HOST_OS))
