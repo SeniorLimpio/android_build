@@ -49,7 +49,7 @@ endif
 # Specify Target Custom GCC Chains to use:
 
 # ROM
-TARGET_GCC_VERSION_AND := 4.9
+TARGET_GCC_VERSION_AND := 4.8
 
 # KERNEL
 TARGET_GCC_VERSION_ARM := 4.8
