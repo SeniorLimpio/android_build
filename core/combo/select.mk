@@ -46,21 +46,10 @@ $(combo_target)HAVE_STRLCPY := 0
 $(combo_target)HAVE_STRLCAT := 0
 $(combo_target)HAVE_KERNEL_MODULES := 0
 
-ifeq ($(TARGET_USE_O_LEVEL_S),true)
-$(combo_target)GLOBAL_CFLAGS := -Os -fno-exceptions -Wno-multichar
-$(combo_target)RELEASE_CFLAGS := -Os -g -fno-strict-aliasing
+$(combo_target)GLOBAL_CFLAGS := -O3 -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -frerun-cse-after-loop -fomit-frame-pointer -fgcse-after-reload -fgcse-sm -fgcse-las -fweb -ftracer -fstrict-aliasing -Wstrict-aliasing=3 -Wno-error=strict-aliasing -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized -fno-exceptions -Wno-multichar
+$(combo_target)RELEASE_CFLAGS := -O3 -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -frerun-cse-after-loop -fomit-frame-pointer -fgcse-after-reload -fgcse-sm -fgcse-las -fweb -ftracer -fstrict-aliasing -Wstrict-aliasing=3 -Wno-error=strict-aliasing -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized
+$(combo_target)GLOBAL_LDFLAGS := -Wl,-O1 -Wl,--as-needed -Wl,--relax -Wl,--sort-common -Wl,--gc-sections
 
-else ifeq ($(TARGET_USE_O_LEVEL_3),true)
-$(combo_target)GLOBAL_CFLAGS := -O3 -fno-exceptions -Wno-multichar
-$(combo_target)RELEASE_CFLAGS := -O3 -g -fno-strict-aliasing
-
-else
-$(combo_target)GLOBAL_CFLAGS := -fstrict-aliasing -Wstrict-aliasing=3 -Wno-error=strict-aliasing -fno-exceptions -Wno-multichar -Wno-error=unused-parameter -Wno-error=unused-but-set-variable
-$(combo_target)RELEASE_CFLAGS := -O3 -g -fstrict-aliasing -Wstrict-aliasing=3 -Wno-error=strict-aliasing -fno-tree-vectorize -fno-inline-functions -fno-unswitch-loops -fgcse-after-reload -fno-ipa-cp-clone -fno-vect-cost-model -Wno-error=unused-parameter -Wno-error=unused-but-set-variable
-
-endif
-
-$(combo_target)GLOBAL_LDFLAGS :=
 $(combo_target)GLOBAL_ARFLAGS := crsP
 
 $(combo_target)EXECUTABLE_SUFFIX :=

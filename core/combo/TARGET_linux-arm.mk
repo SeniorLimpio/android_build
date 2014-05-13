@@ -35,13 +35,13 @@ TARGET_ARCH_VARIANT := armv5te
 endif
 
 ifeq ($(strip $(TARGET_GCC_VERSION_AND)),)
-TARGET_GCC_VERSION_AND := 4.7
+TARGET_GCC_VERSION_AND := 4.8
 else
 TARGET_GCC_VERSION_AND := $(TARGET_GCC_VERSION_AND)
 endif
 
 ifeq ($(strip $(TARGET_GCC_VERSION_ARM)),)
-TARGET_GCC_VERSION_ARM := 4.7
+TARGET_GCC_VERSION_ARM := 4.8
 else
 TARGET_GCC_VERSION_ARM := $(TARGET_GCC_VERSION_ARM)
 endif
@@ -82,42 +82,76 @@ endif
 
 TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
-ifeq ($(TARGET_USE_O3),true)
 TARGET_arm_CFLAGS :=    -O3 \
-                        -fomit-frame-pointer \
-                        -fstrict-aliasing    \
-                        -funswitch-loops
-else
-TARGET_arm_CFLAGS :=    -O3 \
-                        -fomit-frame-pointer \
+			-ffunction-sections \
+			-fdata-sections \
+			-frename-registers \
+			-frerun-cse-after-loop \
+			-fomit-frame-pointer \
+                        -fgcse-after-reload \
+			-fgcse-sm \
+			-fgcse-las \
+			-fweb \
+			-ftracer \
                         -fstrict-aliasing \
                         -funswitch-loops \
                         -fno-tree-vectorize \
                         -fno-inline-functions \
                         -Wstrict-aliasing=3 \
                         -Wno-error=strict-aliasing \
-                        -fgcse-after-reload \
                         -fno-ipa-cp-clone \
                         -fno-vect-cost-model \
                         -Wno-error=unused-parameter \
-                        -Wno-error=unused-but-set-variable
+                        -Wno-error=unused-but-set-variable \
+			-Wno-error=maybe-uninitialized
 
 # Modules can choose to compile some source as thumb.
 TARGET_thumb_CFLAGS :=  -mthumb \
-                        -Os \
-                        -fomit-frame-pointer \
+                        -O3 \
+			-ffunction-sections \
+			-fdata-sections \
+			-frename-registers \
+			-frerun-cse-after-loop \
+			-fomit-frame-pointer \
+                        -fgcse-after-reload \
+			-fgcse-sm \
+			-fgcse-las \
+			-fweb \
+			-ftracer \
                         -fstrict-aliasing \
+                        -funswitch-loops \
                         -fno-tree-vectorize \
                         -fno-inline-functions \
-                        -fno-unswitch-loops \
                         -Wstrict-aliasing=3 \
                         -Wno-error=strict-aliasing \
-                        -fgcse-after-reload \
                         -fno-ipa-cp-clone \
                         -fno-vect-cost-model \
                         -Wno-error=unused-parameter \
-                        -Wno-error=unused-but-set-variable
-endif
+                        -Wno-error=unused-but-set-variable \
+			-Wno-error=maybe-uninitialized
+
+TARGET_RELEASE_CFLAGS := -O3 \
+			-ffunction-sections \
+			-fdata-sections \
+			-frename-registers \
+			-frerun-cse-after-loop \
+			-fomit-frame-pointer \
+                        -fgcse-after-reload \
+			-fgcse-sm \
+			-fgcse-las \
+			-fweb \
+			-ftracer \
+                        -fstrict-aliasing \
+                        -funswitch-loops \
+                        -fno-tree-vectorize \
+                        -fno-inline-functions \
+                        -Wstrict-aliasing=3 \
+                        -Wno-error=strict-aliasing \
+                        -fno-ipa-cp-clone \
+                        -fno-vect-cost-model \
+                        -Wno-error=unused-parameter \
+                        -Wno-error=unused-but-set-variable \
+			-Wno-error=maybe-uninitialized
 
 # Set FORCE_ARM_DEBUGGING to "true" in your buildspec.mk
 # or in your environment to force a full arm build, even for
@@ -160,17 +194,6 @@ TARGET_GLOBAL_CFLAGS += \
 			-include $(android_config_h) \
 			-I $(dir $(android_config_h))
 
-# This warning causes dalvik not to build with gcc 4.6+ and -Werror.
-# We cannot turn it off blindly since the option is not available
-# in gcc-4.4.x.  We also want to disable sincos optimization globally
-# by turning off the builtin sin function.
-ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8 4.8.% 4.9 4.9.%, $(TARGET_GCC_VERSION_AND)),)
-ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8 4.8.% 4.9 4.9.%, $(TARGET_GCC_VERSION_ARM)),)
-TARGET_GLOBAL_CFLAGS += -Wno-unused-but-set-variable -fno-builtin-sin \
-			-fno-strict-volatile-bitfields
-endif
-endif
-
 # This is to avoid the dreaded warning compiler message:
 #   note: the mangling of 'va_list' has changed in GCC 4.4
 #
@@ -193,21 +216,6 @@ TARGET_GLOBAL_LDFLAGS += \
 TARGET_GLOBAL_CFLAGS += -mthumb-interwork -fstrict-aliasing
 
 TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden -fstrict-aliasing
-
-# More flags/options can be added here
-TARGET_RELEASE_CFLAGS := \
-			-DNDEBUG \
-			-g \
-			-Wstrict-aliasing=3 \
-			-Wno-error=strict-aliasing \
-			-fstrict-aliasing \
-			-fgcse-after-reload \
-			-frerun-cse-after-loop \
-			-frename-registers \
-			-fno-ipa-cp-clone \
-			-fno-vect-cost-model \
-			-Wno-error=unused-parameter \
-			-Wno-error=unused-but-set-variable
 
 libc_root := bionic/libc
 libm_root := bionic/libm
