@@ -462,12 +462,15 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.Unmount("/system")
 
   script.ShowProgress(0.5, 0)
-  script.Print("")
-  script.Print("")
-  script.Print("Slim Roms")
-  script.Print("")
-  script.Print(" www.slimroms.net  ")
-  script.Print("")
+  script.Print("#####################################")
+  script.Print("#####################################")
+  script.Print("##                                 ##")
+  script.Print("##             L-DROID             ##")
+  script.Print("##                                 ##")
+  script.Print("##        by: Senior_Limpio        ##")
+  script.Print("##                                 ##")
+  script.Print("#####################################")
+  script.Print("#####################################")
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
@@ -509,6 +512,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 0)
+  script.Print("##             Enjoy L-Droid            ##");
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:

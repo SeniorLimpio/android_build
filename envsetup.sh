@@ -61,12 +61,12 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^slim_") ; then
-       SLIM_BUILD=$(echo -n $1 | sed -e 's/^slim_//g')
+    if (echo -n $1 | grep -q -e "^ldroid_") ; then
+       LDROID_BUILD=$(echo -n $1 | sed -e 's/^ldroid_//g')
     else
-       SLIM_BUILD=
+       LDROID_BUILD=
     fi
-    export SLIM_BUILD
+    export LDROID_BUILD
 
     CALLED_FROM_SETUP=true BUILD_SYSTEM=build/core \
         TARGET_PRODUCT=$1 \
@@ -506,8 +506,8 @@ echo "z$target" | grep -q "-"
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the SLIM model name
-            lunch slim_$target-userdebug
+            # This is probably just the LDROID model name
+            lunch ldroid_$target-userdebug
         fi
 fi
 return $?
@@ -554,7 +554,7 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it off the SlimRoms github
+        # if we can't find a product, try to grab it off the L-Droid github
         T=$(gettop)
         pushd $T > /dev/null
         build/tools/roomservice.py $product
