@@ -44,13 +44,13 @@ endif
 # 4.8 is default in my optimizations, as it gives noticable performance boost
 ifeq ($(strip $(TARGET_GCC_VERSION_EXP)),)
 #TARGET_GCC_VERSION := 4.7
-TARGET_GCC_VERSION := 4.8
+TARGET_GCC_VERSION := 4.8-sm
 else
 TARGET_GCC_VERSION_AND := $(TARGET_GCC_VERSION_AND)
 endif
 
 ifeq ($(strip $(TARGET_GCC_VERSION_ARM)),)
-TARGET_GCC_VERSION_ARM := 4.9
+TARGET_GCC_VERSION_ARM := 4.9-sm
 else
 TARGET_GCC_VERSION_ARM := $(TARGET_GCC_VERSION_ARM)
 endif
@@ -97,7 +97,7 @@ TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 TARGET_arm_CFLAGS := -O3 -DNDEBUG -fstrict-aliasing -funsafe-loop-optimizations -fsection-anchors -fivopts -ftree-loop-im -ftree-loop-ivcanon -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -fomit-frame-pointer -fgcse-sm -fgcse-las -fweb -ftracer -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized
 
 # Target THUMB, major portion of Android. Please change -O3 back to -Os in case of issues
-TARGET_thumb_CFLAGS := -mthumb -O3 -DNDEBUG -funsafe-loop-optimizations -fsection-anchors -fivopts -ftree-loop-im -ftree-loop-ivcanon -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -frerun-cse-after-loop -fomit-frame-pointer -fgcse-sm -fgcse-las -fweb -ftracer -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized
+TARGET_thumb_CFLAGS := -mthumb -O2 -DNDEBUG -funsafe-loop-optimizations -fsection-anchors -fivopts -ftree-loop-im -ftree-loop-ivcanon -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -frerun-cse-after-loop -fomit-frame-pointer -fgcse-sm -fgcse-las -fweb -ftracer -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized
 
 # Release CFLAGS. Usually you don't need to change anything here
 TARGET_RELEASE_CFLAGS := -O3 -DNDEBUG -fno-strict-aliasing -funsafe-loop-optimizations -fsection-anchors -fivopts -ftree-loop-im -ftree-loop-ivcanon -ffunction-sections -fdata-sections -funswitch-loops -frename-registers -fomit-frame-pointer -fgcse-sm -fgcse-las -fweb -ftracer -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized
