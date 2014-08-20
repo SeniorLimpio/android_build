@@ -1453,7 +1453,7 @@ endif
 ifeq ($(USE_PREBUILT_CHROMIUM),1)
 ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
 	@echo "Running Chromium prebuilt setup script..."
-	$(hide) . $(TOPDIR)vendor/liquid/tools/chromium_prebuilt.sh $(TOP)
+	$(hide) . $(TOPDIR)vendor/ldroid/tools/chromium_prebuilt.sh $(TOP)
 endif
 endif
 # -----------------------------------------------------------------
