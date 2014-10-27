@@ -88,14 +88,15 @@ ifneq ($(USE_CCACHE),)
   # We don't really use system headers much so the rootdir is
   # fine; ensures these paths are relative for all Android trees
   # on a workstation.
-  export CCACHE_BASEDIR := /
+  ifeq ($(CCACHE_BASEDIR),)
+    export CCACHE_BASEDIR := /
+  endif
 
   # It has been shown that ccache 3.x using direct mode can be several times
   # faster than using the current ccache 2.4 that is used by default
-  # use the system ccache if it exists, else default to the one in prebuilts
-  ccache := $(shell which ccache)
+  # use the system ccache if asked to, else default to the one in prebuilts
 
-  ifeq ($(ccache),)
+  ifeq ($(USE_SYSTEM_CCACHE),)
     CCACHE_HOST_TAG := $(HOST_PREBUILT_TAG)
     # If we are cross-compiling Windows binaries on Linux
     # then use the linux ccache binary instead.
@@ -104,6 +105,8 @@ ifneq ($(USE_CCACHE),)
     endif
 
     ccache := prebuilts/misc/$(CCACHE_HOST_TAG)/ccache/ccache
+  else
+    ccache := $(shell which ccache)
   endif
 
   # Check that the executable is here.
