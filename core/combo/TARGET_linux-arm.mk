@@ -44,13 +44,13 @@ endif
 # 4.8 is default in my optimizations, as it gives noticable performance boost
 ifeq ($(strip $(TARGET_GCC_VERSION_EXP)),)
 #TARGET_GCC_VERSION := 4.7
-TARGET_GCC_VERSION := 4.8-sm
+TARGET_GCC_VERSION := 4.7
 else
 TARGET_GCC_VERSION_AND := $(TARGET_GCC_VERSION_AND)
 endif
 
 ifeq ($(strip $(TARGET_GCC_VERSION_ARM)),)
-TARGET_GCC_VERSION_ARM := 4.9-sm
+TARGET_GCC_VERSION_ARM := 4.7
 else
 TARGET_GCC_VERSION_ARM := $(TARGET_GCC_VERSION_ARM)
 endif
@@ -58,10 +58,10 @@ endif
 # Specify Target Custom GCC Chains to use:
 
 # ROM
-TARGET_GCC_VERSION_AND := 4.8-sm
+TARGET_GCC_VERSION_AND := 4.8-sl
 
 # KERNEL
-TARGET_GCC_VERSION_ARM := 4.9-sm
+TARGET_GCC_VERSION_ARM := 4.8-sl
 
 TARGET_ARCH_SPECIFIC_MAKEFILE := $(BUILD_COMBOS)/arch/$(TARGET_ARCH)/$(TARGET_ARCH_VARIANT).mk
 ifeq ($(strip $(wildcard $(TARGET_ARCH_SPECIFIC_MAKEFILE))),)
